@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F5F5F7;
+            color: #705C53;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #705C53;
+            color: #F5F5F7;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            font-weight: 700;
+            color: #EDDFE0;
+        }
+
+        .container {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Suggestion Box */
+        .suggestion-box {
+            margin-bottom: 20px;
+            background-color: #EDDFE0;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .suggestion-box span {
+            background-color: #705C53;
+            color: #F5F5F7;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .suggestion-box span:hover {
+            background-color: #8b7769;
+        }
+
+        /* Search Section */
+        .search-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .search-section form {
+            display: flex;
+            width: 100%;
+            max-width: 500px;
+            transition: all 0.3s ease;
+        }
+
+        .search-section input[type="text"] {
+            padding: 12px;
+            font-size: 1.2em;
+            flex: 1;
+            border-radius: 25px 0 0 25px;
+            border: 1px solid #705C53;
+            outline: none;
+        }
+
+        .search-section button {
+            padding: 12px 20px;
+            font-size: 1.2em;
+            background-color: #705C53;
+            color: #F5F5F7;
+            border: none;
+            cursor: pointer;
+            border-radius: 0 25px 25px 0;
+            font-weight: 700;
+        }
+
+        /* Searched Book Display */
+        .primary-book {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #EDDFE0;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 0 auto 40px;  /* Centering the primary book */
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .primary-book img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .primary-book .title {
+            font-weight: 700;
+            font-size: 1.6em;
+            color: #705C53;
+        }
+
+        .primary-book .author {
+            font-style: italic;
+            color: #B7B7B7;
+            font-size: 1.1em;
+        }
+
+        /* Recommended Books Grid */
+        .recommended-section {
+            text-align: center;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .book-item {
+            background-color: #EDDFE0;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .book-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-item img {
+            max-width: 100%;
+            border-radius: 10px;
+            height: 280px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .book-title {
+            font-weight: 700;
+            font-size: 1.2em;
+            color: #705C53;
+        }
+
+        .book-author {
+            color: #B7B7B7;
+            font-size: 1em;
+            font-style: italic;
+        }
+
+        footer {
+            background-color: #705C53;
+            color: #EDDFE0;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer p {
+            font-size: 1em;
+            margin: 0;
+            color: #EDDFE0;
+        }
+        /* Suggestion Box */
+.suggestion-box {
+    margin-bottom: 20px;
+    background-color: #EDDFE0;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.suggestion-box h2 {
+    font-size: 1.4em;
+    color: #705C53;
+    margin: 0;
+    font-weight: 700;
+}
+
+.suggestion-box span {
+    background-color: #705C53;
+    color: #F5F5F7;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin: 5px;
+}
+
+.suggestion-box span:hover {
+    background-color: #8b7769;
+}
+
+    </style>
+    <script>
+        function setSuggestion(bookTitle) {
+            document.getElementById("searchInput").value = bookTitle;
+        }
+    </script>
+</head>
+<body>
+
+<header>
+    <h1>Book Recommender System</h1>
+</header>
+
+<div class="container">
+<!-- Suggestion Box -->
+<div class="suggestion-box">
+    <h2>Try Searching for Examples</h2>
+    <span onclick="setSuggestion('1984')">1984</span>
+    <span onclick="setSuggestion('1st to Die: A Novel')">1st to Die: A Novel</span>
+    <span onclick="setSuggestion('Harry Potter and the Prisoner of Azkaban (Book 3)')">Harry Potter</span>
+    <span onclick="setSuggestion('Year of Wonders')">Year of Wonders</span>
+    <span onclick="setSuggestion('The Runaway Jury')">The Runaway Jury</span>
+</div>
+
+    <!-- Search Section -->
+    <div class="search-section">
+        <h2>Find Your Next Book</h2>
+        <form action="/recommend_books" method="post">
+            <input id="searchInput" name="input" type="text" placeholder="Enter a book title" required>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Searched Book Display -->
+    {% if data %}
+        <div class="primary-book">
+            <img src="{{ data[0][2] }}" alt="{{ data[0][0] }} cover">
+            <div class="title">{{ data[0][0] }}</div>
+            <div class="author">{{ data[0][1] }}</div>
+        </div>
+
+        <!-- Recommended Books Section -->
+        <div class="recommended-section">
+            <h2>You Might Also Like</h2>
+            <div class="book-grid">
+                {% for book in data[1:] %}
+                    <div class="book-item">
+                        <img src="{{ book[2] }}" alt="{{ book[0] }} cover">
+                        <div class="book-title">{{ book[0] }}</div>
+                        <div class="book-author">{{ book[1] }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <p>No recommendations available.</p>
+    {% endif %}
+</div>
+
+<footer>
+    <p>&copy; 2024 Book Recommender System | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>

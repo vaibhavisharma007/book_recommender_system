@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommender System - Trending Books</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F5F5F7;
+            color: #705C53;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #705C53;
+            color: #F5F5F7;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            font-weight: 700;
+            color: #EDDFE0;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: #EDDFE0;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #B7B7B7;
+        }
+
+        .container {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .container h2 {
+            font-size: 2.5em;
+            color: #705C53;
+            margin-bottom: 30px;
+        }
+
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .book-item {
+            background-color: #EDDFE0;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .book-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            background-color: #F5F5F7;
+        }
+
+        .book-item img {
+            max-width: 100%;
+            border-radius: 10px;
+            height: 320px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+        }
+
+        .book-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .book-title {
+            font-weight: 700;
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #705C53;
+        }
+
+        .book-author {
+            color: #B7B7B7;
+            font-size: 1em;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .book-rating {
+            margin: 15px 0;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            color: #705C53;
+        }
+
+        .rating-stars i {
+            color: #e0d955;
+        }
+
+        .book-votes {
+            color: #B7B7B7;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        footer {
+            background-color: #705C53;
+            color: #EDDFE0;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 1em;
+            margin: 0;
+            color: #EDDFE0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Book Recommender System</h1>
+    <nav>
+        <a href="/">Trending Books</a>
+        <a href="/recommend">Collaborative Model</a>
+        
+    </nav>
+</header>
+
+<div class="container" id="trending">
+    <h2>Top 50 Trending Books</h2>
+    <div class="book-list">
+        {% for i in range(book_name|length) %}
+        <div class="book-item">
+            <img src="{{ image[i] }}" alt="Book Cover">
+            <div class="book-title">{{ book_name[i] }}</div>
+            <div class="book-author">by {{ author[i] }}</div>
+            <div class="book-rating">
+                <span class="rating-stars">
+                    {% set whole_stars = rating[i] // 1 %}
+                    {% set whole_stars_int = whole_stars | int %}
+                    {% set half_star = rating[i] % 1 >= 0.5 %}
+                    {% for j in range(whole_stars_int) %}
+                    <i class="fas fa-star"></i>
+                    {% endfor %}
+                    {% if half_star %}
+                    <i class="fas fa-star-half-alt"></i>
+                    {% endif %}
+                </span>
+                <span>{{ rating[i] | round(1) }}</span>
+            </div>
+            <div class="book-votes">({{ votes[i] }} votes)</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Book Recommender System | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
